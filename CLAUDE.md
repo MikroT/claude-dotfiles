@@ -28,3 +28,6 @@ Never create a git commit unless the user explicitly asks for it in that turn. S
 
 # Before creating files, tables, or resources
 Check whether it already exists first (file, DB table/column, cloud resource, config entry) before creating or writing it — avoid silent duplicates or overwrites. This applies especially to database schema changes and one-off scripts.
+
+# Keeping this file in sync
+This file is backed up at github.com/MikroT/claude-dotfiles. When you add or change a rule here, tell the user this file changed and offer to sync the update to that repo (clone if not already present locally, copy this file over, commit, push — always with explicit go-ahead per the commit rule above).
