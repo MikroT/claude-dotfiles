@@ -85,7 +85,7 @@ Oltre ad ADR e runbook, questi pattern emergono spesso — ma vanno creati solo 
 
 ## 6. Ricostruzione retroattiva
 
-Ora ricostruisci lo storico di questo progetto in entrambi i pattern, usando queste fonti in ordine di affidabilità:
+Ora ricostruisci lo storico di questo progetto in ADR e runbook, usando queste fonti in ordine di affidabilità. Se durante la ricerca noti che è già scattato uno dei trigger del §5 (es. un vecchio incidente di produzione mai documentato, o un termine di dominio storicamente ambiguo), segnalamelo a parte — non crearlo automaticamente, proponilo insieme al resto.
 1. Questa conversazione, se contiene decisioni o procedure già discusse
 2. `git log` e messaggi di commit — cerca commit che segnalano scelte strutturali (refactoring grossi, cambi di schema, scelte di libreria) per gli ADR; cerca script/config che rivelano una procedura ripetuta per i runbook
 3. Commenti nel codice che spiegano un "perché" (per ADR) o descrivono passaggi operativi (per runbook)

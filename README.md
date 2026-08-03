@@ -18,6 +18,8 @@ Personal global config for Claude Code, and the full onboarding guide for settin
 
 Follow the official install instructions for your OS at [claude.com/claude-code](https://claude.com/claude-code). Run `claude` once and log in — this creates the base `~/.claude/` folder.
 
+> Anything in `<angle brackets>` below is a placeholder — replace it with your real value before running the command, don't paste it as-is.
+
 ### 2. Restore the global CLAUDE.md (personal behavior)
 
 This is the file that makes every session, on any project, behave the way you expect: respond in Italian, ask before committing, read ADRs before architecture decisions, and so on.
@@ -153,6 +155,8 @@ Config personale globale per Claude Code, e guida completa di onboarding per con
 ### 1. Installa Claude Code
 
 Segui le istruzioni ufficiali per il tuo sistema operativo su [claude.com/claude-code](https://claude.com/claude-code). Avvia `claude` una volta e fai login — questo crea la cartella base `~/.claude/`.
+
+> Tutto quello tra `<parentesi angolari>` qui sotto è un segnaposto — sostituiscilo col tuo valore reale prima di eseguire il comando, non incollarlo così com'è.
 
 ### 2. Ripristina il CLAUDE.md globale (comportamento personale)
 

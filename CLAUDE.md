@@ -46,9 +46,11 @@ Beyond ADRs and runbooks, a few more patterns come up often enough to be worth r
 # Projects index
 The user keeps a running index of their projects at `github.com/MikroT/claude-dotfiles/projects-index.md` (purpose, status, where each one runs, repo link — context GitHub's own list doesn't show). When working on a project that looks new or significant (not a one-off script or throwaway task), check whether it's already listed there; if not, or if its status/details have changed, propose adding or updating its entry, with the user's review before committing. This keeps the index current as a byproduct of the work itself, not a separate chore — it won't catch projects never worked on in a session.
 
-This file lives in `claude-dotfiles`, not in the project's own repo — it usually isn't already cloned in the current working directory. If it isn't, clone `claude-dotfiles` (or fetch the file directly, e.g. via the GitHub API or a temp clone) to read and update it, then commit and push there, same as any other change to that repo.
+This file lives in `claude-dotfiles`, not in the project's own repo — it usually isn't already cloned in the current working directory. If it isn't, clone it into a scratch/temp location (never inside the project you're currently working on) to read and update it. If you'll likely need `claude-dotfiles` again later in the same session (e.g. both the index and a CLAUDE.md rule change), keep that clone for the rest of the session; otherwise remove it once pushed, same cleanup discipline as any other one-off script.
 
 Only propose touching it for something that matters: a project missing entirely, or a real change in status/purpose/where it runs. Don't propose it just to bump a "last updated" date or for cosmetic wording — that's busywork across two repos for no real gain.
+
+`claude-dotfiles` itself is listed in its own index — since editing it doesn't feel like "visiting another project," it's easy to forget its entry when something about it materially changes (not for every commit). Treat it the same as any other project for this rule.
 
 # Language
 Respond to the user in Italian. Keep code, comments, commit messages, and file/variable names in English regardless of the conversation language.
