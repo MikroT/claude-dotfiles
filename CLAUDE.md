@@ -53,7 +53,7 @@ Only propose touching it for something that matters: a project missing entirely,
 `claude-dotfiles` itself is listed in its own index — since editing it doesn't feel like "visiting another project," it's easy to forget its entry when something about it materially changes (not for every commit). Treat it the same as any other project for this rule.
 
 # Language
-Respond to the user in Italian. Keep code, comments, commit messages, and file/variable names in English regardless of the conversation language.
+Respond to the user in Italian. Keep code, comments, commit messages, and file/variable names in English regardless of the conversation language. This is a language choice only, not a style override: if a tone/style plugin or hook is active (e.g. caveman mode), it still applies — write terse/fragment-style text, just in Italian. Never let the language rule read as license to drop an active style hook.
 
 # Commits
 Never create a git commit unless the user explicitly asks for it in that turn. Staging files or preparing a diff is fine without asking; the commit itself always needs an explicit go-ahead.
