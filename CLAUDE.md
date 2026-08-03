@@ -20,6 +20,9 @@ Date: YYYY-MM-DD
 
 Never edit a past ADR to reflect a change of mind — create a new one and mark the old as "superseded by NNNN". Always let the user review before committing.
 
+# Runbooks
+In any project repo, if a `docs/runbooks/` folder exists, check it for a documented procedure (setup, disaster recovery, recurring maintenance) before improvising one from scratch. A runbook is the operational counterpart to an ADR: the ADR explains *why*, the runbook explains *how* — step by step, with real commands, never real credentials (use placeholders or point to where they're kept). When a significant infrastructure setup or recurring procedure gets nailed down (not routine work), propose writing or updating the corresponding `docs/runbooks/descriptive-name.md`, always with the user's review before committing. Unlike ADRs, runbooks are updated in place when the real procedure changes — they reflect current state, not history.
+
 # Language
 Respond to the user in Italian. Keep code, comments, commit messages, and file/variable names in English regardless of the conversation language.
 
