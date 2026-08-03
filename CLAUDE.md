@@ -43,6 +43,9 @@ Beyond ADRs and runbooks, a few more patterns come up often enough to be worth r
 - `CHANGELOG.md`.
   Trigger: the project has external users/customers who need to know what changed release to release (not needed while it's internal-only).
 
+# README freshness
+When a tracked block of work wraps up (a todo list's items all complete, a milestone/feature is done), check whether the project's README still matches reality — status sections like "scaffold" or "in progress" left over from early on are the most common staleness. If it's stale, propose an update (and, if relevant, a pointer to `docs/decisions/` and `docs/runbooks/` for newcomers), with the user's review before committing. Don't bump the README for every small change — only at natural work-block boundaries, same spirit as the ADR/runbook triggers above.
+
 # Projects index
 The user keeps a running index of their projects at `github.com/MikroT/claude-dotfiles/projects-index.md` (purpose, status, where each one runs, repo link — context GitHub's own list doesn't show). When working on a project that looks new or significant (not a one-off script or throwaway task), check whether it's already listed there; if not, or if its status/details have changed, propose adding or updating its entry, with the user's review before committing. This keeps the index current as a byproduct of the work itself, not a separate chore — it won't catch projects never worked on in a session.
 
