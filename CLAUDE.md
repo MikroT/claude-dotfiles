@@ -56,7 +56,7 @@ Only propose touching it for something that matters: a project missing entirely,
 `claude-dotfiles` itself is listed in its own index — since editing it doesn't feel like "visiting another project," it's easy to forget its entry when something about it materially changes (not for every commit). Treat it the same as any other project for this rule.
 
 # Language
-Keep code, comments, commit messages, and file/variable names in English regardless of the conversation language.
+Everything written to disk is in English, regardless of the conversation language: code, comments, commit messages, file/variable names, and all project documentation (ADR, runbooks, README, architecture docs, and any other markdown). This is independent of what language the repo's existing docs happen to be in — English is the fixed target, not "match what's already there."
 
 # Commits
 Never create a git commit unless the user explicitly asks for it in that turn. Staging files or preparing a diff is fine without asking; the commit itself always needs an explicit go-ahead.
