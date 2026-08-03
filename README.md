@@ -126,6 +126,10 @@ Be deliberate about these — none of them are covered by cloning a repo:
 
 When a new general rule/preference comes up in any session, it gets added to `~/.claude/CLAUDE.md` on the machine in use, then synced here with a commit — same file, not a separate process. The global `CLAUDE.md` itself carries a standing reminder to offer this sync whenever a rule changes, so it's never left to memory.
 
+### 7. Projects index
+
+[`projects-index.md`](projects-index.md) tracks every project worked on with Claude Code — purpose, status, where it runs, repo link. It's updated as a byproduct of working on a given project (the global `CLAUDE.md` carries the reminder), not by a separate manual chore or continuous scan.
+
 ### What never goes in this repo
 
 Never credentials, `.credentials.json`, `settings.json`, `history.jsonl`, or the `projects/` folder (per-project memory, potentially sensitive client data). Only generic behavioral config.
@@ -253,6 +257,10 @@ Da gestire con attenzione — nessuno di questi è coperto dal clone di un repo:
 ### 6. Come mantenere aggiornato questo repo
 
 Quando durante una sessione emerge una nuova regola/preferenza generale, va aggiunta a `~/.claude/CLAUDE.md` sulla macchina in uso, poi sincronizzata qui con un commit — stesso file, non un processo separato. Il `CLAUDE.md` globale stesso porta un promemoria permanente di proporre questa sincronizzazione ogni volta che una regola cambia, così non resta affidato alla memoria.
+
+### 7. Indice progetti
+
+[`projects-index.md`](projects-index.md) traccia ogni progetto su cui lavoro con Claude Code — scopo, stato, dove gira, link al repo. Si aggiorna come sottoprodotto del lavoro su quel progetto (il `CLAUDE.md` globale porta il promemoria), non come lavoro manuale separato o scansione continua.
 
 ### Cosa NON va in questo repo
 

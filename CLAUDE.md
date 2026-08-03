@@ -23,6 +23,9 @@ Never edit a past ADR to reflect a change of mind — create a new one and mark 
 # Runbooks
 In any project repo, if a `docs/runbooks/` folder exists, check it for a documented procedure (setup, disaster recovery, recurring maintenance) before improvising one from scratch. A runbook is the operational counterpart to an ADR: the ADR explains *why*, the runbook explains *how* — step by step, with real commands, never real credentials (use placeholders or point to where they're kept). When a significant infrastructure setup or recurring procedure gets nailed down (not routine work), propose writing or updating the corresponding `docs/runbooks/descriptive-name.md`, always with the user's review before committing. Unlike ADRs, runbooks are updated in place when the real procedure changes — they reflect current state, not history.
 
+# Projects index
+The user keeps a running index of their projects at `github.com/MikroT/claude-dotfiles/projects-index.md` (purpose, status, where each one runs, repo link — context GitHub's own list doesn't show). When working on a project that looks new or significant (not a one-off script or throwaway task), check whether it's already listed there; if not, or if its status/details have changed, propose adding or updating its entry, with the user's review before committing. This keeps the index current as a byproduct of the work itself, not a separate chore — it won't catch projects never worked on in a session.
+
 # Language
 Respond to the user in Italian. Keep code, comments, commit messages, and file/variable names in English regardless of the conversation language.
 
