@@ -22,6 +22,8 @@ Follow the official install instructions for your OS at [claude.com/claude-code]
 
 This is the file that makes every session, on any project, behave the way you expect: respond in Italian, ask before committing, read ADRs before architecture decisions, and so on.
 
+**Do steps 2.1–2.6 yourself, without Claude** — a fresh Claude Code session on a new machine can't read this file yet (it isn't cloned, and this repo is private, so there's no shortcut like "hey Claude, go read the README on GitHub"). Once step 2.6 finishes and the repo is cloned locally, *then* you can open Claude Code in that folder and say "read this README and finish the remaining steps" — from there on it can help.
+
 ```bash
 # 2.1 — generate a key dedicated to this repo (never reuse a key from another project/server)
 ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519_dotfiles -N '' -C 'claude-dotfiles-<machine-name>'
@@ -65,6 +67,8 @@ If `~/.claude/CLAUDE.md` already has other content on this machine, merge by han
 ### 3. Reconnect to an existing project (example: MCM)
 
 Each project repo needs its **own** dedicated key — deploy keys are per-repo, keys are never shared across projects.
+
+**Same rule as above** — generate the key, add it as a Deploy Key, verify it, and clone, all yourself. Claude can't fetch a private repo it has no key for. Once the clone succeeds, it can pick up from the project's own `CLAUDE.md` and `docs/`.
 
 ```bash
 ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519_mcm -N '' -C 'mcm-<machine-name>'
@@ -154,6 +158,8 @@ Segui le istruzioni ufficiali per il tuo sistema operativo su [claude.com/claude
 
 È il file che fa comportare ogni sessione, su qualunque progetto, come ti aspetti: risponde in italiano, chiede conferma prima di committare, legge gli ADR prima di decisioni architetturali, e così via.
 
+**Fai i passi 2.1–2.6 da solo, senza Claude** — una sessione Claude Code nuova su un PC nuovo non può ancora leggere questo file (non è clonato, e questo repo è privato, quindi non c'è scorciatoia tipo "leggi il README su GitHub"). Una volta finito il passo 2.6 e il repo è clonato in locale, *allora* puoi aprire Claude Code in quella cartella e dire "leggi questo README e completa i passi rimanenti" — da lì in poi può aiutarti.
+
 ```bash
 # 2.1 — genera una key dedicata a questo repo (mai riusare una key di un altro progetto/server)
 ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519_dotfiles -N '' -C 'claude-dotfiles-<nome-macchina>'
@@ -197,6 +203,8 @@ Se `~/.claude/CLAUDE.md` ha già altro contenuto su questa macchina, unisci a ma
 ### 3. Riconnettiti a un progetto esistente (esempio: MCM)
 
 Ogni repo di progetto ha bisogno della **propria** key dedicata — le deploy key sono per-repo, le chiavi non vanno mai condivise tra progetti.
+
+**Stessa regola di sopra** — genera la key, aggiungila come Deploy Key, verificala, e clona, tutto da solo. Claude non può accedere a un repo privato per cui non ha una key. Una volta riuscito il clone, può proseguire dal `CLAUDE.md` e dai `docs/` del progetto stesso.
 
 ```bash
 ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519_mcm -N '' -C 'mcm-<nome-macchina>'
