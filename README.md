@@ -104,14 +104,14 @@ Repeat this whole step, with its own key and alias, for every other project repo
 This is separate from GitHub access — it's SSH access to the server itself where the app actually runs and gets deployed from.
 
 ```bash
-ssh-keygen -t ed25519 -f ~/.ssh/keys/<server-alias> -N ''
+ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519_<server-alias> -N ''
 cat >> ~/.ssh/config << 'EOF'
 
 Host <server-alias>
   HostName <server-ip>
   User <server-user>
   Port <server-port>
-  IdentityFile ~/.ssh/keys/<server-alias>
+  IdentityFile ~/.ssh/id_ed25519_<server-alias>
 EOF
 ```
 
@@ -242,14 +242,14 @@ Ripeti l'intero passaggio, con la sua key e il suo alias, per ogni altro repo di
 Questo è separato dall'accesso GitHub — è l'accesso SSH al server stesso dove l'app gira davvero e viene deployata.
 
 ```bash
-ssh-keygen -t ed25519 -f ~/.ssh/keys/<alias-server> -N ''
+ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519_<alias-server> -N ''
 cat >> ~/.ssh/config << 'EOF'
 
 Host <alias-server>
   HostName <ip-server>
   User <utente-server>
   Port <porta-server>
-  IdentityFile ~/.ssh/keys/<alias-server>
+  IdentityFile ~/.ssh/id_ed25519_<alias-server>
 EOF
 ```
 
