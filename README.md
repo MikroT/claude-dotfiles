@@ -91,11 +91,11 @@ Add it as a Deploy Key (with write access if you'll push) on the project's GitHu
 git clone github-mcm:MikroT/mcm.git
 ```
 
-You get the code back **and** `docs/decisions/` (the project's Architecture Decision Records) **and** its own project-level `CLAUDE.md` — all versioned, all restored automatically by the clone.
+You get the code back **and** `docs/decisions/` (the project's Architecture Decision Records) **and** `docs/runbooks/` (its operational procedures) **and** its own project-level `CLAUDE.md` — all versioned, all restored automatically by the clone.
 
 Repeat this whole step, with its own key and alias, for every other project repo you work on.
 
-**New project with no documentation yet?** Use [`docs-standard-setup-prompt.md`](docs-standard-setup-prompt.md) — paste it into that project's Claude Code session to bootstrap the `docs/decisions/` (ADR) and `docs/runbooks/` pattern there, including retroactive reconstruction from git history and existing docs.
+**New project with no documentation yet?** Use [`docs-standard-setup-prompt.md`](docs-standard-setup-prompt.md) — paste it into that project's Claude Code session to bootstrap the full documentation standard there (ADR, runbooks, and the trigger-based patterns), including retroactive reconstruction from git history and existing docs.
 
 ### 4. If the project lives on a remote server (example: MCM's VPS)
 
@@ -227,11 +227,11 @@ Aggiungila come Deploy Key (con write access se prevedi di pushare) sul repo Git
 git clone github-mcm:MikroT/mcm.git
 ```
 
-Recuperi il codice **e** `docs/decisions/` (gli Architecture Decision Record del progetto) **e** il suo `CLAUDE.md` a livello di progetto — tutto versionato, tutto ripristinato automaticamente dal clone.
+Recuperi il codice **e** `docs/decisions/` (gli Architecture Decision Record del progetto) **e** `docs/runbooks/` (le sue procedure operative) **e** il suo `CLAUDE.md` a livello di progetto — tutto versionato, tutto ripristinato automaticamente dal clone.
 
 Ripeti l'intero passaggio, con la sua key e il suo alias, per ogni altro repo di progetto su cui lavori.
 
-**Progetto nuovo senza documentazione?** Usa [`docs-standard-setup-prompt.md`](docs-standard-setup-prompt.md) — incollalo nella sessione Claude Code di quel progetto per avviare lì il pattern `docs/decisions/` (ADR) e `docs/runbooks/`, inclusa la ricostruzione retroattiva da git history e documentazione esistente.
+**Progetto nuovo senza documentazione?** Usa [`docs-standard-setup-prompt.md`](docs-standard-setup-prompt.md) — incollalo nella sessione Claude Code di quel progetto per avviare lì lo standard di documentazione completo (ADR, runbook, e i pattern a trigger), inclusa la ricostruzione retroattiva da git history e documentazione esistente.
 
 ### 4. Se il progetto vive su un server remoto (esempio: il VPS di MCM)
 

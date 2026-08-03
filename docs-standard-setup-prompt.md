@@ -1,4 +1,4 @@
-Voglio adottare in questo repo il mio standard personale di documentazione — due pattern complementari, ADR e runbook — così le decisioni e le procedure operative sopravvivono indipendentemente da questa conversazione.
+Voglio adottare in questo repo il mio standard personale di documentazione — un piccolo insieme di pattern complementari (in primis ADR e runbook, più altri usati solo quando serve davvero) così le decisioni e le procedure operative sopravvivono indipendentemente da questa conversazione.
 
 ## 1. Setup delle cartelle
 
@@ -40,7 +40,7 @@ Regola chiave: **non aggiornare mai un ADR passato per riflettere un cambio idea
 
 ## 3. Pattern Runbook (`docs/runbooks/`)
 
-Un runbook documenta una procedura operativa — setup infrastrutturale, disaster recovery, task ricorrenti di manutenzione. Complementare all'ADR: l'ADR dice perché avete scelto Postgres+Barman+MinIO, il runbook dice esattamente come ricrearlo o come recuperarlo se si rompe.
+Un runbook documenta una procedura operativa — setup infrastrutturale, disaster recovery, task ricorrenti di manutenzione. Complementare all'ADR: l'ADR dice perché avete scelto una certa architettura o strumento, il runbook dice esattamente come ricrearlo o come recuperarlo se si rompe.
 
 File: `docs/runbooks/nome-descrittivo.md` (niente numerazione, il nome stesso deve essere ricercabile — es. `disaster-recovery-database.md`, `deploy-produzione.md`).
 
@@ -69,7 +69,21 @@ Problemi noti incontrati durante l'esecuzione e come risolverli, se rilevanti.
 
 Regola chiave: a differenza degli ADR, **un runbook si aggiorna in-place** quando la procedura reale cambia (nuovi comandi, path diversi) — deve sempre riflettere lo stato attuale, non uno storico di versioni.
 
-## 4. Ricostruzione retroattiva
+## 4. Conoscenza di sessione che va scritta, non solo ricordata
+
+Se durante il lavoro emerge qualcosa che varrebbe la pena ricordare — una decisione presa, un vincolo scoperto, un workaround adottato — e non è già ovvio dal codice o dalla git history, trattalo come candidato per un ADR o un runbook, non solo per la tua memoria di sessione. La memoria aiuta te in questa conversazione; la conoscenza che deve sopravvivere e viaggiare con il progetto va scritta qui.
+
+## 5. Altri pattern di documentazione (da usare solo quando serve davvero)
+
+Oltre ad ADR e runbook, questi pattern emergono spesso — ma vanno creati solo quando scatta il loro trigger concreto, mai vuoti o per precauzione:
+
+- `docs/incidents/` — post-mortem scritto *dopo* un problema in produzione (cosa è andato storto, come risolto, cosa cambia per prevenirlo). Trigger: primo incidente reale in produzione su questo progetto.
+- `docs/glossary.md` — definizioni brevi di termini di dominio specifici del progetto. Trigger: un termine usato in modo ambiguo/incoerente genera confusione reale.
+- `docs/architecture/` (diagrammi, overview di sistema). Trigger: il sistema è cresciuto abbastanza da non stare più in testa a una persona sola, o serve onboarding di qualcuno di nuovo.
+- `CONTRIBUTING.md`. Trigger: qualcuno oltre all'utente e a Claude inizia a contribuire codice al progetto.
+- `CHANGELOG.md`. Trigger: il progetto ha utenti/clienti esterni che devono sapere cosa cambia release dopo release.
+
+## 6. Ricostruzione retroattiva
 
 Ora ricostruisci lo storico di questo progetto in entrambi i pattern, usando queste fonti in ordine di affidabilità:
 1. Questa conversazione, se contiene decisioni o procedure già discusse
@@ -84,11 +98,12 @@ Regole per la ricostruzione:
 - Numera gli ADR in ordine cronologico reale, non di scrittura.
 - Alla fine, dammi un elenco separato per ADR e runbook di cosa hai documentato, e cosa sospetti manchi ma non hai trovato abbastanza informazione per scrivere con sicurezza.
 
-## 5. Regola permanente per il futuro
+## 7. Regola permanente per il futuro
 
 Da qui in avanti, per ogni sessione futura su questo repo:
 - Prima di lavorare su un task architetturale, leggi `docs/decisions/` — non ripetere discussioni già chiuse.
 - Prima di eseguire una procedura operativa nota (deploy, backup, disaster recovery), controlla se esiste già un runbook in `docs/runbooks/` — seguilo invece di reinventare il processo.
 - Quando chiudiamo una nuova decisione architetturale importante, proponi di creare l'ADR corrispondente.
 - Quando completiamo un setup infrastrutturale rilevante o definiamo una procedura ricorrente, proponi di scrivere o aggiornare il runbook corrispondente.
+- Riconosci anche i trigger degli altri pattern (§5) — proponili solo quando scattano davvero, non prima.
 - Fammi sempre confermare/rivedere il contenuto prima di committare, in entrambi i casi.
