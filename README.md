@@ -18,11 +18,11 @@ Personal global config for Claude Code, and the full onboarding guide for settin
 
 Follow the official install instructions for your OS at [claude.com/claude-code](https://claude.com/claude-code). Run `claude` once and log in — this creates the base `~/.claude/` folder.
 
-> Anything in `<angle brackets>` below is a placeholder — replace it with your real value before running the command, don't paste it as-is.
-
 ### 2. Restore the global CLAUDE.md (personal behavior)
 
 This is the file that makes every session, on any project, behave the way you expect: respond in Italian, ask before committing, read ADRs before architecture decisions, and so on.
+
+> Anything in `<angle brackets>` from here on is a placeholder — replace it with your real value before running the command, don't paste it as-is.
 
 **Do steps 2.1–2.6 yourself, without Claude** — a fresh Claude Code session on a new machine can't read this file yet (it isn't cloned, and this repo is private, so there's no shortcut like "hey Claude, go read the README on GitHub"). Once step 2.6 finishes and the repo is cloned locally, *then* you can open Claude Code in that folder and say "read this README and finish the remaining steps" — from there on it can help.
 
@@ -156,11 +156,11 @@ Config personale globale per Claude Code, e guida completa di onboarding per con
 
 Segui le istruzioni ufficiali per il tuo sistema operativo su [claude.com/claude-code](https://claude.com/claude-code). Avvia `claude` una volta e fai login — questo crea la cartella base `~/.claude/`.
 
-> Tutto quello tra `<parentesi angolari>` qui sotto è un segnaposto — sostituiscilo col tuo valore reale prima di eseguire il comando, non incollarlo così com'è.
-
 ### 2. Ripristina il CLAUDE.md globale (comportamento personale)
 
 È il file che fa comportare ogni sessione, su qualunque progetto, come ti aspetti: risponde in italiano, chiede conferma prima di committare, legge gli ADR prima di decisioni architetturali, e così via.
+
+> Tutto quello tra `<parentesi angolari>` da qui in poi è un segnaposto — sostituiscilo col tuo valore reale prima di eseguire il comando, non incollarlo così com'è.
 
 **Fai i passi 2.1–2.6 da solo, senza Claude** — una sessione Claude Code nuova su un PC nuovo non può ancora leggere questo file (non è clonato, e questo repo è privato, quindi non c'è scorciatoia tipo "leggi il README su GitHub"). Una volta finito il passo 2.6 e il repo è clonato in locale, *allora* puoi aprire Claude Code in quella cartella e dire "leggi questo README e completa i passi rimanenti" — da lì in poi può aiutarti.
 

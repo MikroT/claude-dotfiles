@@ -13,7 +13,7 @@ A running index of projects worked on with Claude Code — not a replacement for
 | Project | Purpose | Status | Repo | Runs on | Last updated |
 |---|---|---|---|---|---|
 | MCM (Auriessence) | Management dashboard for Auriessence (fragrances/candles e-commerce): orders, inventory, invoicing, Meta Catalog sync | Active | [MikroT/mcm](https://github.com/MikroT/mcm) | Hetzner VPS (Sicuraweb), Docker Compose | 2026-08-01 |
-| claude-dotfiles | This repo — personal Claude Code config, onboarding guide, documentation standards | Active | [MikroT/claude-dotfiles](https://github.com/MikroT/claude-dotfiles) | — (config only) | 2026-08-01 |
+| claude-dotfiles | This repo — personal Claude Code config, onboarding guide, documentation standards | Active | [MikroT/claude-dotfiles](https://github.com/MikroT/claude-dotfiles) | N/A — config only, doesn't run anywhere | 2026-08-01 |
 
 **Status values:** `Active` (worked on regularly) · `Stable` (done, not actively changed, still in use) · `Paused` (intentionally on hold) · `Archived` (no longer maintained).
 
@@ -28,6 +28,6 @@ Un indice vivo dei progetti su cui lavoro con Claude Code — non sostituisce la
 | Progetto | Scopo | Stato | Repo | Gira su | Ultimo aggiornamento |
 |---|---|---|---|---|---|
 | MCM (Auriessence) | Dashboard gestionale per Auriessence (e-commerce profumi/candele): ordini, inventario, fatturazione, sync Meta Catalog | Attivo | [MikroT/mcm](https://github.com/MikroT/mcm) | VPS Hetzner (Sicuraweb), Docker Compose | 2026-08-01 |
-| claude-dotfiles | Questo repo — config personale Claude Code, guida onboarding, standard di documentazione | Attivo | [MikroT/claude-dotfiles](https://github.com/MikroT/claude-dotfiles) | — (solo config) | 2026-08-01 |
+| claude-dotfiles | Questo repo — config personale Claude Code, guida onboarding, standard di documentazione | Attivo | [MikroT/claude-dotfiles](https://github.com/MikroT/claude-dotfiles) | N/D — solo config, non gira da nessuna parte | 2026-08-01 |
 
 **Valori di stato:** `Attivo` (ci lavori regolarmente) · `Stabile` (finito, non modificato attivamente, ancora in uso) · `In pausa` (fermo intenzionalmente) · `Archiviato` (non più mantenuto).
