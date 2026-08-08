@@ -2,6 +2,11 @@
 - **graphify** (`~/.claude/skills/graphify/SKILL.md`) - any input to knowledge graph. Trigger: `/graphify`
 When the user types `/graphify`, invoke the Skill tool with `skill: "graphify"` before doing anything else.
 
+# Cross-project knowledge graph
+The user maintains a cross-project knowledge graph at `github.com/MikroT/knowledge-graphify`, built with graphify over their active repos (currently `awra`, `mcm`, `synology-backup-reports`) and synced across machines via plain `git pull`/`git push` — not a live service (see that repo's `docs/decisions/0001-git-sync-not-live-service.md` for why). It does not replace ADRs/runbooks, which remain the source of truth in each project's own repo — it's a derived, regenerable index that answers cross-project questions ("what have we decided about X across every project that touches it") without manually reading through several repos by hand.
+
+At the end of a work block that added or changed an ADR/runbook in one of the covered repos (same trigger as the README-freshness rule below), propose updating the graph — `git pull` in `knowledge-graphify`, re-run `graphify <repo-urls> --update`, commit, push — with the user's review before committing, same as any other doc update. Don't propose it for routine/small changes, same spirit as the other doc-trigger rules in this file. If a new project reaches the point of having its own `docs/decisions/`, propose adding it to the graph's scope.
+
 # Architecture Decision Records (ADR)
 In any project repo, if a `docs/decisions/` folder exists, read the relevant ADRs there before working on architectural or design tasks — don't re-litigate decisions already recorded. When closing an important architectural decision (a choice that changes system structure, or discards a real alternative after discussion — not routine changes), propose creating a new ADR at `docs/decisions/NNNN-short-title.md` following this format:
 
@@ -60,6 +65,9 @@ Everything written to disk is in English, regardless of the conversation languag
 
 # Commits
 Never create a git commit unless the user explicitly asks for it in that turn. Staging files or preparing a diff is fine without asking; the commit itself always needs an explicit go-ahead.
+
+# Branching
+Solo developer, no team, no PR review — so branch protection has low value by default, and most work (fixes, docs updates, small scripts, linear features) commits directly to `main`/`master`. Use a feature branch instead when a change is risky, exploratory, or multi-step (e.g. an architectural refactor, an experiment that might be abandoned entirely) — branches give free rollback (discard the branch, `main` stays untouched) without needing `revert`/`reset` on shared history. No need for a heavier flow (develop/release/hotfix branches) — a plain feature branch merged back to `main` when stable is enough. When in doubt about which category a task falls into, ask.
 
 # Before creating files, tables, or resources
 Check whether it already exists first (file, DB table/column, cloud resource, config entry) before creating or writing it — avoid silent duplicates or overwrites. This applies especially to database schema changes and one-off scripts.
