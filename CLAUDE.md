@@ -57,6 +57,11 @@ Beyond ADRs and runbooks, a few more patterns come up often enough to be worth r
 - `CHANGELOG.md`.
   Trigger: the project has external users/customers who need to know what changed release to release (not needed while it's internal-only).
 
+# ROADMAP.md and PIPELINE.md at repo root
+Once a project has a real roadmap decision (an ADR sequencing phases of work, e.g. `docs/decisions/NNNN-*-roadmap.md`) and/or a real development pipeline decided (repo structure, stack, test/CI — usually spread across a few ADRs), mirror them as short, root-level summary files: `ROADMAP.md` and `PIPELINE.md`, uppercase per the `README.md`/`LICENSE` convention. These are pointers, not the source of truth — each summary file explicitly says so and links back to the ADR(s) it summarizes; the ADR keeps its full Context/Decision/Alternatives-considered/Open-questions shape and is what gets updated when the decision itself changes. Update the root summary only when the phases or pipeline shape actually change, not for every ADR edit.
+
+Trigger: propose creating these only once the underlying ADR(s) actually exist and are stable enough to summarize — not preemptively, same spirit as the "Other doc patterns" triggers below. If only one of the two exists yet (e.g. a pipeline decided but no phased roadmap), create only that one file.
+
 # README freshness
 When a tracked block of work wraps up (a todo list's items all complete, a milestone/feature is done), check whether the project's README still matches reality — status sections like "scaffold" or "in progress" left over from early on are the most common staleness. If it's stale, propose an update (and, if relevant, a pointer to `docs/decisions/` and `docs/runbooks/` for newcomers), with the user's review before committing. Don't bump the README for every small change — only at natural work-block boundaries, same spirit as the ADR/runbook triggers above.
 
