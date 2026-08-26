@@ -86,6 +86,11 @@ Everything written to disk is in English, regardless of the conversation languag
 # Commits
 Never create a git commit unless the user explicitly asks for it in that turn. Staging files or preparing a diff is fine without asking; the commit itself always needs an explicit go-ahead.
 
+# Conventional Commits
+Every commit subject line follows [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/): `<type>[optional scope]: <description>`. Type is one of the Angular-convention set (the de facto standard beyond the spec's bare-minimum `feat`/`fix`): `feat` (new capability), `fix` (bug fix), `docs` (documentation only — ADRs, README, runbooks, ROADMAP/PIPELINE), `chore` (tooling, dependency bumps, repo housekeeping, cross-repo sync commits), `refactor` (code change that's neither a fix nor a feature), `test` (adding/correcting tests), `ci` (CI/CD config), `style` (formatting, no logic change), `perf` (performance improvement). Scope (optional) is a short parenthetical noting the affected area, e.g. `docs(adr): add ADR 0024`. Breaking changes get a `!` after the type/scope (`feat!: ...`) or a `BREAKING CHANGE:` footer.
+
+Description is imperative mood, lowercase, no trailing period, under ~72 chars — `add ROADMAP.md and move PIPELINE.md to root`, not `Added ROADMAP.md.`. The commit body (below the subject) keeps explaining the *why*, same as before this rule — Conventional Commits standardizes the subject line's structure, not the reasoning in the body. Applies to every repo this user works in, not just projects that already use the convention — introduce it on the next commit rather than waiting for a project-specific trigger.
+
 # Branching
 Solo developer, no team, no PR review — so branch protection has low value by default, and most work (fixes, docs updates, small scripts, linear features) commits directly to `main`/`master`. Use a feature branch instead when a change is risky, exploratory, or multi-step (e.g. an architectural refactor, an experiment that might be abandoned entirely) — branches give free rollback (discard the branch, `main` stays untouched) without needing `revert`/`reset` on shared history. No need for a heavier flow (develop/release/hotfix branches) — a plain feature branch merged back to `main` when stable is enough. When in doubt about which category a task falls into, ask.
 
@@ -94,6 +99,13 @@ When a spike, test, or validation run uses real accounts/tenants/data (a client'
 
 # Before creating files, tables, or resources
 Check whether it already exists first (file, DB table/column, cloud resource, config entry) before creating or writing it — avoid silent duplicates or overwrites. This applies especially to database schema changes and one-off scripts.
+
+# Session notes for coding work (docs/notes/)
+ADRs and runbooks capture decisions and procedures — they deliberately don't capture day-to-day implementation progress (what got built this session, what's half-done, what broke and why, what to pick up next). For that, use `docs/notes/session-notes.md` (single running file, not one file per session) once real code is being written (not during pure design/ADR work — that's what ROADMAP.md/PIPELINE.md already track).
+
+At the end of a coding work block (not every message — same work-block-boundary spirit as the README-freshness rule), update it yourself with: what was done, what's in progress or blocked, and a concrete next step. Do this proactively, without being asked — the entire point is that the user shouldn't have to paste a summary from one session (or one model/tool) into the next; the file does that handoff instead. Keep entries terse and dated (`## 2026-08-26`), newest on top. Prune or fold entries once their content is fully captured by a merged commit/ADR/runbook and no longer needed as working memory — this file is short-term operational memory, not a permanent history (git log and ADRs are the permanent record).
+
+At the start of a coding session, read this file (if it exists) as part of the first-touch check alongside `docs/decisions/` and `docs/runbooks/` — it's the fastest way to resume exactly where the last session left off without the user re-explaining it.
 
 # Keeping claude-dotfiles in sync
 This file, and the projects index it references, are backed up at github.com/MikroT/claude-dotfiles. When you add or change a rule here, or update an entry in projects-index.md, tell the user what changed and offer to sync it to that repo — same clone/commit/push mechanics as the Projects index section above, always with explicit go-ahead per the commit rule above.
