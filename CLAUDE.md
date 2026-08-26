@@ -15,6 +15,8 @@ Registration is per-project/per-directory (`claude mcp add --transport http agno
 # Architecture Decision Records (ADR)
 The first time a project is touched in a session (not on every message after that), check whether `docs/decisions/` exists and skim the list of ADRs there — don't wait for the task to look "architectural" before checking. This is what surfaced a real gap once: a fresh session had no way to know where infrastructure credentials lived or that a Synology DSM API existed as an alternative to SSH+sudo, and had to rediscover both mid-session instead of just reading the existing runbook (see `proxmox-infrastructure`'s `docs/runbooks/credentials-and-secrets-access.md`, added specifically so this doesn't repeat). A quick skim at the start costs little; rediscovering settled context mid-task costs a lot more.
 
+**Same first-touch pass, whichever of these exist:** `README.md` (what the project is, current status), `ROADMAP.md`/`PIPELINE.md` (if the project has reached that point — see their own section below), and `docs/notes/session-notes.md` (if coding work has started — see below). One pass, not four separate checks: skim the root-level files and `docs/` structure once, at the start, before diving into the task.
+
 Beyond that first skim, read the relevant ADRs there before working on architectural or design tasks — don't re-litigate decisions already recorded. When closing an important architectural decision (a choice that changes system structure, or discards a real alternative after discussion — not routine changes), propose creating a new ADR at `docs/decisions/NNNN-short-title.md` following this format:
 
 ```markdown
