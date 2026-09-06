@@ -43,6 +43,8 @@ Date: YYYY-MM-DD
 ## References
 ```
 
+When a new ADR is drafted starting from the structure of a previous or similar one (same project or cross-repo), rebuild the References section entry by entry from the content of *this* document — don't inherit it as a block from the starting document. Cross-repo references stay welcome and useful when the topic really is shared (e.g. same pricing model, same recurring architectural pattern across projects); they just need to be checked individually for relevance, not carried over for form's sake because an ADR written earlier in the same session had them.
+
 Never edit a past ADR to reflect a change of mind — create a new one and mark the old as "superseded by NNNN". Always let the user review before committing.
 
 ## Runbooks
