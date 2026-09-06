@@ -60,9 +60,11 @@ ssh -T github-dotfiles
 # 2.6 — clone and restore
 git clone github-dotfiles:MikroT/claude-dotfiles.git
 cp claude-dotfiles/CLAUDE.md ~/.claude/CLAUDE.md
+mkdir -p ~/.claude/skills/docs-workflow
+cp claude-dotfiles/skills/docs-workflow/SKILL.md ~/.claude/skills/docs-workflow/SKILL.md
 ```
 
-If `~/.claude/CLAUDE.md` already has other content on this machine, merge by hand instead of overwriting.
+If `~/.claude/CLAUDE.md` already has other content on this machine, merge by hand instead of overwriting. The global `CLAUDE.md` points to the `docs-workflow` skill for ADRs/runbooks/session-notes/README-freshness/the knowledge graph — without that skill restored too, those rules won't apply on the new machine.
 
 **Checkpoint:** open `claude` on any empty folder and ask something that should trigger a rule (e.g. "create a file X") — it should ask before creating, and answer you in Italian.
 
@@ -130,7 +132,7 @@ Be deliberate about these — none of them are covered by cloning a repo:
 
 ### 6. Keeping this repo up to date
 
-When a new general rule/preference comes up in any session, it gets added to `~/.claude/CLAUDE.md` on the machine in use, then synced here with a commit — same file, not a separate process. The global `CLAUDE.md` itself carries a standing reminder to offer this sync whenever a rule changes, so it's never left to memory.
+When a new general rule/preference comes up in any session, it gets added to `~/.claude/CLAUDE.md` on the machine in use, then synced here with a commit — same file, not a separate process. The global `CLAUDE.md` itself carries a standing reminder to offer this sync whenever a rule changes, so it's never left to memory. The `docs-workflow` skill (documentation rules — ADRs, runbooks, session notes, README/projects-index freshness, the knowledge graph) follows the same mechanism: a change there is proposed and synced to `skills/docs-workflow/SKILL.md` in this repo the same way, not treated separately.
 
 ### 7. Projects index
 
@@ -198,9 +200,11 @@ ssh -T github-dotfiles
 # 2.6 — clona e ripristina
 git clone github-dotfiles:MikroT/claude-dotfiles.git
 cp claude-dotfiles/CLAUDE.md ~/.claude/CLAUDE.md
+mkdir -p ~/.claude/skills/docs-workflow
+cp claude-dotfiles/skills/docs-workflow/SKILL.md ~/.claude/skills/docs-workflow/SKILL.md
 ```
 
-Se `~/.claude/CLAUDE.md` ha già altro contenuto su questa macchina, unisci a mano invece di sovrascrivere.
+Se `~/.claude/CLAUDE.md` ha già altro contenuto su questa macchina, unisci a mano invece di sovrascrivere. Il `CLAUDE.md` globale rimanda alla skill `docs-workflow` per ADR/runbook/session-notes/freshness del README/grafo di conoscenza — senza ripristinare anche quella skill, quelle regole non valgono sulla macchina nuova.
 
 **Checkpoint:** apri `claude` su una cartella vuota e chiedi qualcosa che dovrebbe attivare una regola (es. "crea un file X") — dovrebbe chiederti conferma prima di crearlo, e risponderti in italiano.
 
@@ -268,7 +272,7 @@ Da gestire con attenzione — nessuno di questi è coperto dal clone di un repo:
 
 ### 6. Come mantenere aggiornato questo repo
 
-Quando durante una sessione emerge una nuova regola/preferenza generale, va aggiunta a `~/.claude/CLAUDE.md` sulla macchina in uso, poi sincronizzata qui con un commit — stesso file, non un processo separato. Il `CLAUDE.md` globale stesso porta un promemoria permanente di proporre questa sincronizzazione ogni volta che una regola cambia, così non resta affidato alla memoria.
+Quando durante una sessione emerge una nuova regola/preferenza generale, va aggiunta a `~/.claude/CLAUDE.md` sulla macchina in uso, poi sincronizzata qui con un commit — stesso file, non un processo separato. Il `CLAUDE.md` globale stesso porta un promemoria permanente di proporre questa sincronizzazione ogni volta che una regola cambia, così non resta affidato alla memoria. La skill `docs-workflow` (regole di documentazione — ADR, runbook, session notes, freshness di README/projects-index, grafo di conoscenza) segue lo stesso meccanismo: una modifica lì viene proposta e sincronizzata su `skills/docs-workflow/SKILL.md` in questo repo allo stesso modo, non trattata separatamente.
 
 ### 7. Indice progetti
 
