@@ -140,6 +140,50 @@ When a new general rule/preference comes up in any session, it gets added to `~/
 
 [`projects-index.md`](projects-index.md) tracks every project worked on with Claude Code — purpose, status, where it runs, repo link. It's updated as a byproduct of working on a given project (the global `CLAUDE.md` carries the reminder), not by a separate manual chore or continuous scan.
 
+### 8. How I use goal / workflow / loop with code-reviewer
+
+The `code-reviewer` subagent ([`agents/code-reviewer.md`](agents/code-reviewer.md)) is read-only by design — it reports findings, it never edits. That makes it a clean *verifier* to drop into an iterative loop where a **different** role does the writing. Three ways I combine it:
+
+**1. `/goal` + code-reviewer — one task with a clear "done" test.**
+
+An implementer writes the change; `code-reviewer` checks it against the project's ADRs and re-runs the relevant checks; blocking findings go back to the implementer; repeat until the reviewer reports none.
+
+```
+/goal Implement <the task>. Loop: an implementer makes the change, then
+the code-reviewer subagent (read-only) checks it against docs/decisions/
+and runs <the project's verify/test command>. If code-reviewer returns
+blocking findings, hand them back to the implementer to fix and
+re-review. Done only when code-reviewer reports zero blocking findings.
+Max 3 review cycles — then stop and report status even if not resolved.
+```
+
+**2. Dynamic workflow (`use a workflow`) + code-reviewer — big multi-step work (migrations, refactors).**
+
+Orchestrator → implementer → code-reviewer (verifier) → a *separate* fixer → code-reviewer again. Key rule: `code-reviewer` stays read-only, and the fix is always made by a different role — never the same turn that judged the code.
+
+```
+Use a workflow for this. The orchestrator plans the steps. For each step:
+an implementer subagent writes the code; then the code-reviewer subagent
+(read-only) verifies it against the project's ADRs and runbooks; if it
+returns blocking findings, a SEPARATE fixer subagent applies the fixes
+(never the reviewer, never the same turn that judged); then code-reviewer
+runs once more. code-reviewer stays read-only throughout. Cap each step at
+3 review->fix cycles — if still not clean, the orchestrator records the
+open findings and moves on, reporting them all at the end.
+```
+
+**3. `/loop` + code-reviewer — recurring automation (e.g. periodic review of open PRs).**
+
+```
+/loop 30m Review every open PR on this repo whose head changed since the
+last run: for each, spawn the code-reviewer subagent to check the diff
+against docs/decisions/ and docs/runbooks/, and post its blocking /
+non-blocking findings as one summary comment. Do not fix anything. Skip a
+PR already reviewed at its current head SHA. Cap at 5 PRs per run.
+```
+
+**Always cap the iterations.** Every one of these patterns must carry an explicit ceiling — e.g. "max 3 cycles, then stop and report the state even if unresolved". Without it, an implementer and a reviewer that don't converge keep handing work back and forth, burning a long run for no progress. The cap turns a non-converging loop into a bounded task that ends with an honest "here's what's still open".
+
 ### What never goes in this repo
 
 Never credentials, `.credentials.json`, `settings.json`, `history.jsonl`, or the `projects/` folder (per-project memory, potentially sensitive client data). Only generic behavioral config.
@@ -281,6 +325,52 @@ Quando durante una sessione emerge una nuova regola/preferenza generale, va aggi
 ### 7. Indice progetti
 
 [`projects-index.md`](projects-index.md) traccia ogni progetto su cui lavoro con Claude Code — scopo, stato, dove gira, link al repo. Si aggiorna come sottoprodotto del lavoro su quel progetto (il `CLAUDE.md` globale porta il promemoria), non come lavoro manuale separato o scansione continua.
+
+### 8. Come uso goal / workflow / loop con code-reviewer
+
+Il subagent `code-reviewer` ([`agents/code-reviewer.md`](agents/code-reviewer.md)) è read-only per scelta — riporta i problemi, non modifica mai. Questo lo rende un *verifier* pulito da inserire in un loop iterativo dove a scrivere è un ruolo **diverso**. Tre modi in cui lo combino:
+
+**1. `/goal` + code-reviewer — un singolo task con criterio di completamento chiaro.**
+
+Un implementer scrive la modifica; `code-reviewer` la verifica contro gli ADR del progetto e rilancia i check pertinenti; i problemi bloccanti tornano all'implementer; si ripete finché il reviewer non ne trova più.
+
+```
+/goal Implementa <il task>. Loop: un implementer fa la modifica, poi il
+subagent code-reviewer (read-only) la controlla contro docs/decisions/ e
+lancia <il comando verify/test del progetto>. Se code-reviewer restituisce
+problemi bloccanti, rimandali all'implementer per il fix e la re-review.
+Fatto solo quando code-reviewer riporta zero problemi bloccanti. Massimo
+3 cicli di review — poi fermati e riporta lo stato anche se non risolto.
+```
+
+**2. Dynamic workflow (`use a workflow`) + code-reviewer — task grandi multi-step (migrazioni, refactor).**
+
+Orchestratore → implementer → code-reviewer (verifier) → un fixer *separato* → di nuovo code-reviewer. Regola chiave: `code-reviewer` resta read-only, e il fix lo fa sempre un ruolo diverso — mai lo stesso turno che ha giudicato il codice.
+
+```
+Usa un workflow per questo. L'orchestratore pianifica gli step. Per ogni
+step: un subagent implementer scrive il codice; poi il subagent
+code-reviewer (read-only) lo verifica contro gli ADR e i runbook del
+progetto; se restituisce problemi bloccanti, un subagent fixer SEPARATO
+applica le correzioni (mai il reviewer, mai lo stesso turno che ha
+giudicato); poi code-reviewer rilancia una volta. code-reviewer resta
+read-only per tutto. Metti un tetto di 3 cicli review->fix per step — se
+non è ancora pulito, l'orchestratore registra i problemi aperti e va
+avanti, riportandoli tutti alla fine.
+```
+
+**3. `/loop` + code-reviewer — automazione ricorrente (es. review periodica delle PR aperte).**
+
+```
+/loop 30m Rivedi ogni PR aperta su questo repo il cui head è cambiato
+dall'ultimo giro: per ciascuna, lancia il subagent code-reviewer per
+controllare il diff contro docs/decisions/ e docs/runbooks/, e posta i
+suoi problemi bloccanti / non bloccanti come un unico commento riassuntivo.
+Non correggere niente. Salta una PR già rivista al suo head SHA corrente.
+Tetto di 5 PR per giro.
+```
+
+**Metti sempre un tetto alle iterazioni.** Ognuno di questi pattern deve avere un limite esplicito — es. "massimo 3 cicli, poi fermati e riporta lo stato anche se non risolto". Senza, un implementer e un reviewer che non convergono continuano a rimbalzarsi il lavoro, bruciando un giro lungo senza progresso. Il tetto trasforma un loop che non converge in un task limitato che finisce con un onesto "ecco cosa resta aperto".
 
 ### Cosa NON va in questo repo
 
