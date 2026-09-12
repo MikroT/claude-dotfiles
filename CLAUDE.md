@@ -53,5 +53,12 @@ Never include "Generated with Claude Code", "Co-Authored-By: Claude",
 or any Claude-Session trailer in commit messages or PR descriptions.
 Ever.
 
+# Secrets and credentials handling
+Whenever you generate an SSH key, API key, password, or any other
+secret/credential, never leave it only in a local file, a chat
+message, or a config committed to a repo. This user's standard
+secrets manager is Infisical — save it there and reference it from
+config via environment variable/placeholder, never inline the value.
+
 # Keeping claude-dotfiles in sync
 This file, the skills under `~/.claude/skills/` referenced above, and the projects index are backed up at github.com/MikroT/claude-dotfiles. When you add or change a rule here, change the `docs-workflow` skill, or update an entry in projects-index.md, tell the user what changed and offer to sync it to that repo — same clone/commit/push mechanics described in that repo's README, always with explicit go-ahead per the Commits rule above.
