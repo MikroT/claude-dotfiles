@@ -1,0 +1,10 @@
+{
+  "model": "sonnet",
+  "effortLevel": "high",
+  "switchModelsOnFlag": false,
+  "agentPushNotifEnabled": true,
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  }
+}

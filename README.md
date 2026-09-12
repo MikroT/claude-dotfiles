@@ -68,6 +68,16 @@ cp claude-dotfiles/agents/*.md ~/.claude/agents/
 
 If `~/.claude/CLAUDE.md` already has other content on this machine, merge by hand instead of overwriting. The global `CLAUDE.md` points to the `docs-workflow` skill for ADRs/runbooks/session-notes/README-freshness/the knowledge graph — without that skill restored too, those rules won't apply on the new machine. The `agents/` copy restores custom global subagents (currently `code-reviewer` — an independent, read-only reviewer that checks code against the project's ADRs/runbooks); without it, `code-reviewer` won't be available on the new machine.
 
+`settings-portable.json` carries the machine-independent behavioral preferences from `settings.json` — `model`, `effortLevel`, `switchModelsOnFlag`, `agentPushNotifEnabled`, `attribution`. **Merge these keys by hand** into the new machine's `~/.claude/settings.json` rather than copying the file over — that file will already have (or will grow) its own `permissions`, `hooks`, `statusLine`, and `enabledPlugins` for this machine, and a blind copy would clobber them. If you have `jq`, this does the merge for you (portable keys win, everything else in the local file is kept):
+
+```bash
+# 2.7 — merge the portable behavioral settings into the local settings.json
+jq -s '.[0] * .[1]' ~/.claude/settings.json claude-dotfiles/settings-portable.json > /tmp/settings-merged.json \
+  && mv /tmp/settings-merged.json ~/.claude/settings.json
+```
+
+Without `jq`, just open both files and copy the five keys in by hand — it's small and one-time. **`permissions.allow`, `hooks`, `statusLine`, and `enabledPlugins` (e.g. the caveman plugin) stay local to each machine on purpose** — they reference machine-specific paths or a plugin you may or may not reinstall here, and rebuild naturally as you use Claude Code and approve permissions day to day. Never copy them in bulk from another machine.
+
 **Checkpoint:** open `claude` on any empty folder and ask something that should trigger a rule (e.g. "create a file X") — it should ask before creating, and answer you in Italian.
 
 ### 3. Reconnect to an existing project (example: MCM)
@@ -130,7 +140,8 @@ Be deliberate about these — none of them are covered by cloning a repo:
 | Claude's per-project memory (`~/.claude/projects/*/memory/`) | Lives only on the machine that wrote it, not in any repo | Back up that folder manually if continuity matters, or let it rebuild over time on the new machine |
 | Server/VPS SSH access | Independent of GitHub, tied to that server's `authorized_keys` | Repeat step 4 for each server, coordinate with whoever administers it |
 | API keys (Gemini, Anthropic console, provider keys used by the app) | Deliberately never stored in any repo | Re-enter them by hand in the app's `.env` / secrets manager on first deploy from the new machine |
-| `settings.json` (Claude Code local permission rules) | Full of machine-specific paths, not portable | Rebuild organically as you approve permissions on the new machine — don't copy the old one over |
+| `settings.json`'s `permissions`, `hooks`, `statusLine`, `enabledPlugins` | Full of machine-specific paths, or a plugin choice tied to this machine | Rebuild organically as you approve permissions and (re)install hooks/plugins on the new machine — don't copy the old file over |
+| `settings.json`'s behavioral preferences (`model`, `effortLevel`, `switchModelsOnFlag`, `agentPushNotifEnabled`, `attribution`) | These ARE portable | Already covered — merge `settings-portable.json` into the new machine's `settings.json` (step 2.7) |
 
 ### 6. Keeping this repo up to date
 
@@ -186,7 +197,7 @@ PR already reviewed at its current head SHA. Cap at 5 PRs per run.
 
 ### What never goes in this repo
 
-Never credentials, `.credentials.json`, `settings.json`, `history.jsonl`, or the `projects/` folder (per-project memory, potentially sensitive client data). Only generic behavioral config.
+Never credentials, `.credentials.json`, the full `settings.json` (its `permissions`/`hooks`/`statusLine`/`enabledPlugins` are machine-specific — only the curated `settings-portable.json` subset above is committed), `history.jsonl`, or the `projects/` folder (per-project memory, potentially sensitive client data). Only generic behavioral config.
 
 ---
 
@@ -254,6 +265,16 @@ cp claude-dotfiles/agents/*.md ~/.claude/agents/
 
 Se `~/.claude/CLAUDE.md` ha già altro contenuto su questa macchina, unisci a mano invece di sovrascrivere. Il `CLAUDE.md` globale rimanda alla skill `docs-workflow` per ADR/runbook/session-notes/freshness del README/grafo di conoscenza — senza ripristinare anche quella skill, quelle regole non valgono sulla macchina nuova. La copia di `agents/` ripristina i subagent globali custom (per ora `code-reviewer` — un reviewer indipendente in sola lettura che confronta il codice con gli ADR/runbook del progetto); senza, `code-reviewer` non sarà disponibile sulla macchina nuova.
 
+`settings-portable.json` porta le preferenze comportamentali indipendenti dalla macchina prese da `settings.json` — `model`, `effortLevel`, `switchModelsOnFlag`, `agentPushNotifEnabled`, `attribution`. **Unisci queste chiavi a mano** dentro il `~/.claude/settings.json` della macchina nuova invece di copiare il file intero — quel file avrà già (o si costruirà) i suoi `permissions`, `hooks`, `statusLine` ed `enabledPlugins` specifici per questa macchina, e una copia cieca li cancellerebbe. Se hai `jq`, questo comando fa il merge al posto tuo (le chiavi portabili vincono, tutto il resto del file locale resta):
+
+```bash
+# 2.7 — unisci le impostazioni comportamentali portabili al settings.json locale
+jq -s '.[0] * .[1]' ~/.claude/settings.json claude-dotfiles/settings-portable.json > /tmp/settings-merged.json \
+  && mv /tmp/settings-merged.json ~/.claude/settings.json
+```
+
+Senza `jq`, apri semplicemente i due file e copia le cinque chiavi a mano — è piccolo e una tantum. **`permissions.allow`, `hooks`, `statusLine` ed `enabledPlugins` (es. il plugin caveman) restano locali per macchina di proposito** — fanno riferimento a path specifici della macchina o a un plugin che potresti o meno reinstallare qui, e si ricostruiscono naturalmente man mano che usi Claude Code e approvi i permessi giorno per giorno. Non copiarli mai in blocco da un'altra macchina.
+
 **Checkpoint:** apri `claude` su una cartella vuota e chiedi qualcosa che dovrebbe attivare una regola (es. "crea un file X") — dovrebbe chiederti conferma prima di crearlo, e risponderti in italiano.
 
 ### 3. Riconnettiti a un progetto esistente (esempio: MCM)
@@ -316,7 +337,8 @@ Da gestire con attenzione — nessuno di questi è coperto dal clone di un repo:
 | Memoria per-progetto di Claude (`~/.claude/projects/*/memory/`) | Vive solo sulla macchina che l'ha scritta, non è in nessun repo | Fai backup manuale di quella cartella se la continuità ti serve, oppure lasciala ricostruire nel tempo sulla nuova macchina |
 | Accesso SSH a server/VPS | Indipendente da GitHub, legato all'`authorized_keys` di quel server | Ripeti il passaggio 4 per ogni server, coordinandoti con chi lo amministra |
 | API key (Gemini, Anthropic console, chiavi provider usate dall'app) | Deliberatamente mai salvate in nessun repo | Reinseriscile a mano nel `.env` / secrets manager dell'app al primo deploy dalla nuova macchina |
-| `settings.json` (permission rule locali di Claude Code) | Piena di path specifici della macchina, non portabile | Si ricostruisce da sola man mano che approvi permessi sulla nuova macchina — non copiare quella vecchia |
+| `permissions`, `hooks`, `statusLine`, `enabledPlugins` di `settings.json` | Pieni di path specifici della macchina, o una scelta di plugin legata a questa macchina | Si ricostruiscono da soli man mano che approvi i permessi e (re)installi hook/plugin sulla macchina nuova — non copiare il vecchio file intero |
+| Le preferenze comportamentali di `settings.json` (`model`, `effortLevel`, `switchModelsOnFlag`, `agentPushNotifEnabled`, `attribution`) | Queste SONO portabili | Già coperto — unisci `settings-portable.json` nel `settings.json` della macchina nuova (passo 2.7) |
 
 ### 6. Come mantenere aggiornato questo repo
 
@@ -374,4 +396,4 @@ Tetto di 5 PR per giro.
 
 ### Cosa NON va in questo repo
 
-Mai credenziali, `.credentials.json`, `settings.json`, `history.jsonl`, o la cartella `projects/` (memoria per-progetto, potenzialmente dati sensibili di clienti). Solo config comportamentale generica.
+Mai credenziali, `.credentials.json`, il `settings.json` intero (`permissions`/`hooks`/`statusLine`/`enabledPlugins` sono specifici della macchina — è committato solo il sottoinsieme curato `settings-portable.json` sopra), `history.jsonl`, o la cartella `projects/` (memoria per-progetto, potenzialmente dati sensibili di clienti). Solo config comportamentale generica.
