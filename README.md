@@ -26,6 +26,16 @@ This is the file that makes every session, on any project, behave the way you ex
 
 **Do steps 2.1–2.6 yourself, without Claude** — a fresh Claude Code session on a new machine can't read this file yet (it isn't cloned, and this repo is private, so there's no shortcut like "hey Claude, go read the README on GitHub"). Once step 2.6 finishes and the repo is cloned locally, *then* you can open Claude Code in that folder and say "read this README and finish the remaining steps" — from there on it can help.
 
+> **Using a GitHub Personal Access Token instead of an SSH deploy key** (handier when you clone it yourself and hand the rest off to Claude Code)? Skip straight to step 2.6, cloning like this instead:
+> ```bash
+> git clone https://<YOUR-TOKEN>@github.com/MikroT/claude-dotfiles.git
+> ```
+> After cloning, strip the token back out of the remote URL so it isn't left sitting in `.git/config`:
+> ```bash
+> git remote set-url origin https://github.com/MikroT/claude-dotfiles.git
+> ```
+> From here you can open Claude Code in the folder and tell it to read this README and finish the remaining restore steps (2.6–2.7) for you.
+
 ```bash
 # 2.1 — generate a key dedicated to this repo (never reuse a key from another project/server)
 ssh-keygen -t ed25519 -f ~/.ssh/id_ed25519_dotfiles -N '' -C 'claude-dotfiles-<machine-name>'
@@ -222,6 +232,16 @@ Segui le istruzioni ufficiali per il tuo sistema operativo su [claude.com/claude
 > Tutto quello tra `<parentesi angolari>` da qui in poi è un segnaposto — sostituiscilo col tuo valore reale prima di eseguire il comando, non incollarlo così com'è.
 
 **Fai i passi 2.1–2.6 da solo, senza Claude** — una sessione Claude Code nuova su un PC nuovo non può ancora leggere questo file (non è clonato, e questo repo è privato, quindi non c'è scorciatoia tipo "leggi il README su GitHub"). Una volta finito il passo 2.6 e il repo è clonato in locale, *allora* puoi aprire Claude Code in quella cartella e dire "leggi questo README e completa i passi rimanenti" — da lì in poi può aiutarti.
+
+> **Usi un Personal Access Token GitHub invece della deploy key SSH** (più comodo quando cloni tu stesso e poi deleghi il resto a Claude Code)? Salta direttamente al passo 2.6, clonando così:
+> ```bash
+> git clone https://<TUO-TOKEN>@github.com/MikroT/claude-dotfiles.git
+> ```
+> Dopo il clone, ripulisci il token dall'URL remoto per non lasciarlo salvato in `.git/config`:
+> ```bash
+> git remote set-url origin https://github.com/MikroT/claude-dotfiles.git
+> ```
+> Da qui puoi aprire Claude Code nella cartella e dirgli di leggere questo README e completare i passi di ripristino restanti (2.6–2.7) al posto tuo.
 
 ```bash
 # 2.1 — genera una key dedicata a questo repo (mai riusare una key di un altro progetto/server)
