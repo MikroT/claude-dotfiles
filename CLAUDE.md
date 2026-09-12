@@ -31,5 +31,22 @@ Before declaring a task finished, verify it end-to-end whenever possible instead
 # Self-correction
 When the user corrects a mistake, don't just fix it inline and move on — propose adding a rule to this file (if it's a general behavior) or to the project's own `CLAUDE.md` (if it's project-specific) so the same mistake doesn't need correcting again next time. Always with the user's review before committing, same as any other doc change.
 
+# Proactive tool suggestions
+After writing or modifying non-trivial code, ask whether to spawn
+the code-reviewer subagent to check it — the way you already ask
+before committing. Don't spawn it unprompted, and don't skip asking
+just because the task seemed small.
+
+When a task's shape fits /goal (a clear, checkable completion
+criterion) or a dynamic workflow (large multi-step work — a
+migration, a refactor across many files, work that naturally splits
+into parallel independent pieces), point it out and suggest using
+it, with a one-line reason why it fits. This applies beyond coding
+tasks too — deep research across multiple sources, large-scale
+triage/classification, or auditing many items against a set of
+rules are equally good fits for /goal or a workflow. This is a
+suggestion, not an action — proceed with the simpler approach
+unless the user opts in.
+
 # Keeping claude-dotfiles in sync
 This file, the skills under `~/.claude/skills/` referenced above, and the projects index are backed up at github.com/MikroT/claude-dotfiles. When you add or change a rule here, change the `docs-workflow` skill, or update an entry in projects-index.md, tell the user what changed and offer to sync it to that repo — same clone/commit/push mechanics described in that repo's README, always with explicit go-ahead per the Commits rule above.
