@@ -68,6 +68,8 @@ Beyond ADRs and runbooks, a few more patterns come up often enough to be worth r
   Trigger: the first real production incident on this project.
 - `docs/glossary.md` — short definitions for project-specific domain terms.
   Trigger: a term is used ambiguously or inconsistently (different meaning in code vs. conversation) and it actually causes confusion.
+- `docs/legacy/` — an index `README.md` plus files documenting how an EXISTING system is built (database schema, application structure, data flows are common examples, not an exhaustive list) — adapt the file set to what the investigation actually surfaces. If the legacy system has a SQL database, include a `queries/` subfolder with reference SQL snippets extracted from the legacy codebase (not the whole system). Separate from `docs/decisions/`, which stays for decisions about the NEW system — this folder never records decisions, only how the old one actually works.
+  Trigger: a rewrite or migration of an existing system is being planned or started, and investigating that system (app structure, DB schema, data flows) has produced knowledge worth preserving.
 
 **More situational — depend on how the project is run:**
 - `docs/architecture/` (diagrams, system overview).
