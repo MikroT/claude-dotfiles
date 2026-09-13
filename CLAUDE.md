@@ -52,6 +52,25 @@ rules are equally good fits for /goal or a workflow. This is a
 suggestion, not an action — proceed with the simpler approach
 unless the user opts in.
 
+# Model and parallelization suggestions
+When a task's complexity clearly doesn't match the current model — a 
+trivial fix (typo, one-line config change, simple lookup) running on 
+Opus, or a genuinely hard task (architectural decision, subtle bug, 
+security-sensitive code) running on Haiku — point it out and suggest 
+switching (/model) before proceeding, with a one-line reason. Don't 
+switch unprompted. (Fable is out of scope for this heuristic — it's 
+for specialized sensitive-domain work, not general coding 
+suggestions.)
+
+When a task is substantial, independent of the current conversation's 
+thread, and doesn't need this session's existing context (a separate 
+file/module, an unrelated project, something that could run 
+unattended), suggest doing it as a separate session/worktree instead 
+of inline here — say why it would benefit from running in parallel 
+(faster overall, keeps this session focused). This is a suggestion, 
+not an action — proceed inline unless the user opts in to splitting 
+it off.
+
 # No AI attribution
 Never include "Generated with Claude Code", "Co-Authored-By: Claude",
 or any Claude-Session trailer in commit messages or PR descriptions.
