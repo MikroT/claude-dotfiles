@@ -35,7 +35,11 @@ When the user corrects a mistake, don't just fix it inline and move on — propo
 After writing or modifying non-trivial code, ask whether to spawn
 the code-reviewer subagent to check it — the way you already ask
 before committing. Don't spawn it unprompted, and don't skip asking
-just because the task seemed small.
+just because the task seemed small. When the review is of something
+about to be committed, code-reviewer also checks the diff and commit
+message against this file's own unconditional rules (attribution,
+language, commit format, anonymization, etc.) — not just code
+quality — per its own spec.
 
 When a task's shape fits /goal (a clear, checkable completion
 criterion) or a dynamic workflow (large multi-step work — a
