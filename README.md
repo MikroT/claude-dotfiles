@@ -160,7 +160,7 @@ Be deliberate about these — none of them are covered by cloning a repo:
 
 | What | Why it doesn't sync | What to do |
 |---|---|---|
-| Claude's per-project memory (`~/.claude/projects/*/memory/`) | Lives only on the machine that wrote it, not in any repo | Back up that folder manually if continuity matters, or let it rebuild over time on the new machine |
+| Claude's per-project memory (`~/.claude/projects/*/memory/`) and session history (`~/.claude/projects/*/*.jsonl`) | Lives only on the machine that wrote it, not in any repo | Copy the folder/files across directly (see [docs/runbooks/session-transfer.md](docs/runbooks/session-transfer.md) for the exact procedure), or let it rebuild over time on the new machine |
 | Server/VPS SSH access | Independent of GitHub, tied to that server's `authorized_keys` | Repeat step 4 for each server, coordinate with whoever administers it |
 | API keys (Gemini, Anthropic console, provider keys used by the app) | Deliberately never stored in any repo | Re-enter them by hand in the app's `.env` / secrets manager on first deploy from the new machine |
 | `settings.json`'s `permissions`, `hooks`, `statusLine`, `enabledPlugins` | Full of machine-specific paths, or a plugin choice tied to this machine | Rebuild organically as you approve permissions and (re)install hooks/plugins on the new machine — don't copy the old file over |
@@ -367,7 +367,7 @@ Da gestire con attenzione — nessuno di questi è coperto dal clone di un repo:
 
 | Cosa | Perché non si sincronizza | Cosa fare |
 |---|---|---|
-| Memoria per-progetto di Claude (`~/.claude/projects/*/memory/`) | Vive solo sulla macchina che l'ha scritta, non è in nessun repo | Fai backup manuale di quella cartella se la continuità ti serve, oppure lasciala ricostruire nel tempo sulla nuova macchina |
+| Memoria per-progetto di Claude (`~/.claude/projects/*/memory/`) e cronologia sessioni (`~/.claude/projects/*/*.jsonl`) | Vive solo sulla macchina che l'ha scritta, non è in nessun repo | Copia direttamente la cartella/i file (vedi [docs/runbooks/session-transfer.md](docs/runbooks/session-transfer.md) per il procedimento esatto), oppure lasciala ricostruire nel tempo sulla nuova macchina |
 | Accesso SSH a server/VPS | Indipendente da GitHub, legato all'`authorized_keys` di quel server | Ripeti il passaggio 4 per ogni server, coordinandoti con chi lo amministra |
 | API key (Gemini, Anthropic console, chiavi provider usate dall'app) | Deliberatamente mai salvate in nessun repo | Reinseriscile a mano nel `.env` / secrets manager dell'app al primo deploy dalla nuova macchina |
 | `permissions`, `hooks`, `statusLine`, `enabledPlugins` di `settings.json` | Pieni di path specifici della macchina, o una scelta di plugin legata a questa macchina | Si ricostruiscono da soli man mano che approvi i permessi e (re)installi hook/plugin sulla macchina nuova — non copiare il vecchio file intero |
