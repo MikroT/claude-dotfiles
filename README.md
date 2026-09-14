@@ -88,6 +88,29 @@ jq -s '.[0] * .[1]' ~/.claude/settings.json claude-dotfiles/settings-portable.js
 
 Without `jq`, just open both files and copy the five keys in by hand — it's small and one-time. **`permissions.allow`, `hooks`, `statusLine`, and `enabledPlugins` (e.g. the caveman plugin) stay local to each machine on purpose** — they reference machine-specific paths or a plugin you may or may not reinstall here, and rebuild naturally as you use Claude Code and approve permissions day to day. Never copy them in bulk from another machine.
 
+### 2.8 — Infisical access
+
+Claude Code (and any local scripts) authenticate to Infisical via
+Universal Auth (client ID + client secret), not a personal login.
+The initial bootstrap credentials are never stored in this repo, in
+chat, or in any other synced location. They live in, in order of
+primary channel → redundancy:
+
+1. Hand delivery — the primary channel for first-time setup on a new
+   machine.
+2. Bitwarden vault — persistent recovery, the normal fallback once
+   set up.
+3. An external USB drive, BitLocker-encrypted — offline physical
+   backup.
+4. An AES-256 encrypted zip on Google Drive — cloud backup, third
+   channel.
+
+For the rest of the Universal Auth flow (exchanging the client
+ID/secret for a session, environment/project selection, and ongoing
+secret access) see the `credentials-and-secrets-access.md` runbook in
+the `proxmox-infrastructure` repo:
+`proxmox-infrastructure/docs/runbooks/credentials-and-secrets-access.md`.
+
 **Checkpoint:** open `claude` on any empty folder and ask something that should trigger a rule (e.g. "create a file X") — it should ask before creating, and answer you in Italian.
 
 ### 3. Reconnect to an existing project (example: MCM)
