@@ -83,5 +83,13 @@ message, or a config committed to a repo. This user's standard
 secrets manager is Infisical — save it there and reference it from
 config via environment variable/placeholder, never inline the value.
 
+This also applies in reverse: when retrieving an existing secret from
+Infisical to use it (e.g. an SSH private key to reach a managed host),
+never write it to a persistent local path (`~/.ssh/keys/`, a repo, a
+dotfile). Fetch it to an ephemeral location only (e.g. under `/tmp`),
+use it, and delete it immediately after — never leave a standing local
+copy between sessions. Credentials live in Infisical; local disk only
+ever holds a transient copy for the duration of one operation.
+
 # Keeping claude-dotfiles in sync
 This file, the skills under `~/.claude/skills/` referenced above, and the projects index are backed up at github.com/MikroT/claude-dotfiles. When you add or change a rule here, change the `docs-workflow` skill, or update an entry in projects-index.md, tell the user what changed and offer to sync it to that repo — same clone/commit/push mechanics described in that repo's README, always with explicit go-ahead per the Commits rule above.
