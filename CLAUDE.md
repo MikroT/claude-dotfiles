@@ -41,6 +41,11 @@ message against this file's own unconditional rules (attribution,
 language, commit format, anonymization, etc.) — not just code
 quality — per its own spec.
 
+When proposing the code-reviewer, also propose the model that fits
+that review best at that moment (e.g. Fable, Opus or Sonnet), with a
+one-line reason. The default is Opus: use it unless the user picks
+another model.
+
 When a task's shape fits /goal (a clear, checkable completion
 criterion) or a dynamic workflow (large multi-step work — a
 migration, a refactor across many files, work that naturally splits
@@ -58,9 +63,7 @@ trivial fix (typo, one-line config change, simple lookup) running on
 Opus, or a genuinely hard task (architectural decision, subtle bug, 
 security-sensitive code) running on Haiku — point it out and suggest 
 switching (/model) before proceeding, with a one-line reason. Don't 
-switch unprompted. (Fable is out of scope for this heuristic — it's 
-for specialized sensitive-domain work, not general coding 
-suggestions.)
+switch unprompted.
 
 When a task is substantial, independent of the current conversation's 
 thread, and doesn't need this session's existing context (a separate 
