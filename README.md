@@ -327,6 +327,39 @@ jq -s '.[0] * .[1]' ~/.claude/settings.json claude-dotfiles/settings-portable.js
 
 Senza `jq`, apri semplicemente i due file e copia le cinque chiavi a mano — è piccolo e una tantum. **`permissions.allow`, `hooks`, `statusLine` ed `enabledPlugins` (es. il plugin caveman) restano locali per macchina di proposito** — fanno riferimento a path specifici della macchina o a un plugin che potresti o meno reinstallare qui, e si ricostruiscono naturalmente man mano che usi Claude Code e approvi i permessi giorno per giorno. Non copiarli mai in blocco da un'altra macchina.
 
+### 2.8 — Accesso a Infisical
+
+Claude Code (e qualsiasi script locale) si autentica su Infisical tramite
+Universal Auth (client ID + client secret), non un login personale.
+Le credenziali di bootstrap, dove sono salvate, e il flusso di
+autenticazione completo (scambio con una sessione, selezione di
+ambiente/progetto, accesso continuo ai secret) sono documentati nel
+repo `proxmox-infrastructure` — vedi il suo runbook
+`docs/runbooks/credentials-and-secrets-access.md` e
+`docs/decisions/0004-infisical-for-machine-secrets.md` (storia del
+backup). Deliberatamente non duplicato qui — Infisical per questo
+cluster è competenza di quel repo, non un'impostazione generica di
+Claude Code.
+
+### 2.9 — graphify (lo skill `/graphify`)
+
+Il CLAUDE.md globale rimanda a `~/.claude/skills/graphify/SKILL.md`.
+Quello skill è di terze parti, quindi non è salvato in questo repo.
+Reinstallalo:
+
+```bash
+python3 -m venv ~/.local/share/graphify-venv
+~/.local/share/graphify-venv/bin/pip install graphifyy   # doppia "y"
+mkdir -p ~/.local/bin && ln -sf ~/.local/share/graphify-venv/bin/graphify ~/.local/bin/graphify
+graphify install --platform claude
+```
+
+(funzionano anche `pipx install graphifyy` o `uv tool install graphifyy`.)
+- **Nome del pacchetto:** il pacchetto reale su PyPI è **`graphifyy`**. Un pacchetto chiamato semplicemente `graphify` non è lo stesso progetto.
+- **Fonte:** github.com/Graphify-Labs/graphify, prima `safishamsi/graphify`.
+- **Dopo l'installazione:** `graphify install` sovrascrive la riga `/graphify` in `~/.claude/CLAUDE.md` con la sua formulazione. Ripristina dopo la versione di questo repo: `diff CLAUDE.md ~/.claude/CLAUDE.md` dovrebbe risultare vuoto.
+- **Uso:** il grafo cross-progetto vive in `MikroT/knowledge-graphify`, e il suo README descrive la procedura di aggiornamento. Gli aggiornamenti multi-repo passano dallo skill `/graphify` dentro una sessione Claude, non dalla CLI nuda.
+
 **Checkpoint:** apri `claude` su una cartella vuota e chiedi qualcosa che dovrebbe attivare una regola (es. "crea un file X") — dovrebbe chiederti conferma prima di crearlo, e risponderti in italiano.
 
 ### 3. Riconnettiti a un progetto esistente (esempio: MCM)
