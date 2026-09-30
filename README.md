@@ -101,6 +101,25 @@ project selection, ongoing secret access) are documented in the
 story). Deliberately not duplicated here — Infisical for this
 cluster is that repo's concern, not a generic Claude Code setting.
 
+### 2.9 — graphify (the `/graphify` skill)
+
+The global CLAUDE.md points to `~/.claude/skills/graphify/SKILL.md`.
+That skill is third-party, so it is not stored in this repo. Reinstall
+it:
+
+```bash
+python3 -m venv ~/.local/share/graphify-venv
+~/.local/share/graphify-venv/bin/pip install graphifyy   # double "y"
+mkdir -p ~/.local/bin && ln -sf ~/.local/share/graphify-venv/bin/graphify ~/.local/bin/graphify
+graphify install --platform claude
+```
+
+(`pipx install graphifyy` or `uv tool install graphifyy` work too.)
+- **Package name:** the real package on PyPI is **`graphifyy`**. A package named plain `graphify` is not the same project.
+- **Source:** github.com/Graphify-Labs/graphify, formerly `safishamsi/graphify`.
+- **After install:** `graphify install` rewrites the `/graphify` line in `~/.claude/CLAUDE.md` with its own wording. Restore this repo's version afterwards: `diff CLAUDE.md ~/.claude/CLAUDE.md` should be empty.
+- **Using it:** the cross-project graph lives in `MikroT/knowledge-graphify`, and its README describes the update procedure. Multi-repo refreshes run through the `/graphify` skill inside a Claude session, not the bare CLI.
+
 **Checkpoint:** open `claude` on any empty folder and ask something that should trigger a rule (e.g. "create a file X") — it should ask before creating, and answer you in Italian.
 
 ### 3. Reconnect to an existing project (example: MCM)
