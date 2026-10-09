@@ -28,6 +28,9 @@ When a spike, test, or validation run uses real accounts/tenants/data (a client'
 # Before creating files, tables, or resources
 Check whether it already exists first (file, DB table/column, cloud resource, config entry) before creating or writing it — avoid silent duplicates or overwrites. This applies especially to database schema changes and one-off scripts.
 
+# pkill/pgrep self-match
+With `pkill -f` / `pgrep -f`, always bracket one character of the pattern (`pkill -f '[c]hrome --kiosk'`, not `pkill -f 'chrome --kiosk'`). `-f` matches the full command line of every process, including the shell that runs the command (e.g. the `bash -c` started by `ssh host "..."`), so a literal pattern matches its own caller: `pkill` kills the shell mid-command and the rest silently never runs, and `pgrep` reports a process that isn't there. The bracketed form still matches the target but not the text `[c]hrome` in the caller's own argv. Also check the pattern doesn't occur unbracketed elsewhere in the same command line (e.g. inside another embedded pattern).
+
 # Verification
 Before declaring a task finished, verify it end-to-end whenever possible instead of assuming it worked from the last step's output alone: run it, test it, check the logs, read back the file you just wrote. A task that touched infrastructure or a live system isn't done until its actual effect has been observed, not just the command that was supposed to cause it.
 
