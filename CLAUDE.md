@@ -31,6 +31,9 @@ Check whether it already exists first (file, DB table/column, cloud resource, co
 # pkill/pgrep self-match
 With `pkill -f` / `pgrep -f`, always bracket one character of the pattern (`pkill -f '[c]hrome --kiosk'`, not `pkill -f 'chrome --kiosk'`). `-f` matches the full command line of every process, including the shell that runs the command (e.g. the `bash -c` started by `ssh host "..."`), so a literal pattern matches its own caller: `pkill` kills the shell mid-command and the rest silently never runs, and `pgrep` reports a process that isn't there. The bracketed form still matches the target but not the text `[c]hrome` in the caller's own argv. Also check the pattern doesn't occur unbracketed elsewhere in the same command line (e.g. inside another embedded pattern).
 
+# Deploy scripts gate restarts
+Deploy/restart scripts must stop before restarting anything when an earlier step (pull, copy, import check) fails — use `set -e` or explicit checks; never let a restart run on unverified code. Real case: a `git pull` on a VM failed for missing GitHub credentials, the script went on, and a bot was restarted on the old code.
+
 # Verification
 Before declaring a task finished, verify it end-to-end whenever possible instead of assuming it worked from the last step's output alone: run it, test it, check the logs, read back the file you just wrote. A task that touched infrastructure or a live system isn't done until its actual effect has been observed, not just the command that was supposed to cause it.
 
